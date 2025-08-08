@@ -1,0 +1,20 @@
+[gd_scene load_steps=5 format=3 uid="uid://cjhw6nucbfrxo"]
+
+[ext_resource type="Script" uid="uid://d2dttq1kovd3u" path="res://Scripts/arena.gd" id="1_t5upn"]
+[ext_resource type="PackedScene" uid="uid://c3ttnlvjcsequ" path="res://Scene/Player.tscn" id="2_8jr3t"]
+[ext_resource type="Script" uid="uid://bst82aq6swa1v" path="res://Scripts/gameManager.gd" id="3_23omr"]
+[ext_resource type="PackedScene" uid="uid://b7tc7bmjx30bg" path="res://Scene/Nemico Pugni.tscn" id="4_h354c"]
+
+[node name="arena" type="Node2D"]
+script = ExtResource("1_t5upn")
+
+[node name="Nemico Pugni" parent="." instance=ExtResource("4_h354c")]
+position = Vector2(237, 206)
+
+[node name="Game Manager" type="Node2D" parent="."]
+visible = false
+script = ExtResource("3_23omr")
+enemy_scene = ExtResource("4_h354c")
+
+[node name="Player" parent="." instance=ExtResource("2_8jr3t")]
+position = Vector2(340, 214)

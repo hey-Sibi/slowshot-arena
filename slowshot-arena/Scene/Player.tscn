@@ -1,0 +1,83 @@
+[gd_scene load_steps=13 format=3 uid="uid://c3ttnlvjcsequ"]
+
+[ext_resource type="Texture2D" uid="uid://cct3dj4ctfe0n" path="res://Assets/top-down-shooter/characters/head/1.png" id="1_fvocf"]
+[ext_resource type="Script" uid="uid://craxy26a6qpn" path="res://Scripts/playerController.gd" id="1_pmp2f"]
+[ext_resource type="PackedScene" uid="uid://dv8mhu1cqi8pq" path="res://Scene/Proiettile.tscn" id="2_3pik8"]
+[ext_resource type="Texture2D" uid="uid://cp82nb24yyrgw" path="res://Assets/top-down-shooter/characters/body/1.png" id="2_pmp2f"]
+[ext_resource type="Texture2D" uid="uid://bsmf26nepg53u" path="res://Assets/top-down-shooter/characters/leg-animation.png" id="3_3pik8"]
+[ext_resource type="Texture2D" uid="uid://bsa7v8fncsygu" path="res://Assets/top-down-shooter/weapons/attach-to-body/1.png" id="5_g1hv4"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_liw1m"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jriwm"]
+atlas = ExtResource("3_3pik8")
+region = Rect2(0, 0, 15, 17)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7dww1"]
+atlas = ExtResource("3_3pik8")
+region = Rect2(15, 0, 15, 17)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_inyuv"]
+atlas = ExtResource("3_3pik8")
+region = Rect2(30, 0, 15, 17)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6q824"]
+atlas = ExtResource("3_3pik8")
+region = Rect2(45, 0, 15, 17)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_c7h21"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jriwm")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7dww1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_inyuv")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6q824")
+}],
+"loop": true,
+"name": &"cammina",
+"speed": 10.0
+}]
+
+[node name="Player" type="CharacterBody2D" groups=["player"]]
+scale = Vector2(2, 2)
+script = ExtResource("1_pmp2f")
+projectile_scene = ExtResource("2_3pik8")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+z_index = 3
+shape = SubResource("CircleShape2D_liw1m")
+
+[node name="corpo" type="Node2D" parent="."]
+
+[node name="testa" type="Sprite2D" parent="corpo"]
+z_index = 2
+position = Vector2(0, -3.5)
+texture = ExtResource("1_fvocf")
+
+[node name="busto" type="Sprite2D" parent="corpo"]
+texture = ExtResource("2_pmp2f")
+
+[node name="gambe" type="AnimatedSprite2D" parent="corpo"]
+z_index = -1
+position = Vector2(-1.5, 5)
+sprite_frames = SubResource("SpriteFrames_c7h21")
+animation = &"cammina"
+
+[node name="pivotArma" type="Node2D" parent="."]
+z_index = 2
+
+[node name="arma" type="Sprite2D" parent="pivotArma"]
+position = Vector2(-3, 9)
+texture = ExtResource("5_g1hv4")
+
+[node name="canna" type="Marker2D" parent="pivotArma"]
+position = Vector2(-3, 14)
+
+[node name="Camera2D" type="Camera2D" parent="."]
